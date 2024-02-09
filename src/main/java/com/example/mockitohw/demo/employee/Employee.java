@@ -2,38 +2,38 @@ package com.example.mockitohw.demo.employee;
 
     public class Employee {
 
-        private int id;
-        private String departmentName;
-        private int salary;
+        private Integer id;
+        private String name;
+        private Integer salary;
 
-        public Employee(int id, String departmentName, int salary) {
+        public Employee(Integer id, String name, Integer salary) {
             this.id = id;
-            this.departmentName = departmentName;
+            this.name = name;
             this.salary = salary;
         }
 
-        public String getEmployees() {
-            return departmentName;
+        public String getName() {
+            return name;
         }
 
-        public void setEmployees(String departmentName) {
-            this.departmentName = departmentName;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public int getId() {
+        public Integer getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 
 
-        public int getSalary() {
+        public Integer getSalary() {
             return salary;
         }
 
-        public void setSalary(int salary) {
+        public void setSalary(Integer salary) {
             this.salary = salary;
         }
 }
