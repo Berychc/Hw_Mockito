@@ -44,4 +44,23 @@ public class DepartmentServiceTest {
         Map<Integer, List<Employee>> actualMap = departmentService.getGroupEmployeesByDepartment();
         assertEquals(expectedMap, actualMap);
     }
+    @Test
+    void testGetMaxSalary() {
+        Employee employee1 = new Employee(1, "John", 3000);
+        Employee employee2 = new Employee(2, "Bob", 4000);
+        departmentService.addEmployee(employee1);
+        departmentService.addEmployee(employee2);
+        Employee maxSalaryEmployee = departmentService.getEmployeeWithMaxSalary(2);
+        assertEquals("Bob", maxSalaryEmployee.getName());
+    }
+
+    @Test
+    void testGetMinSalary() {
+        Employee employee1 = new Employee(1, "John", 3000);
+        Employee employee2 = new Employee(2, "Bob", 4000);
+        departmentService.addEmployee(employee1);
+        departmentService.addEmployee(employee2);
+        Employee maxSalaryEmployee = departmentService.getEmployeeWithMinSalary(1);
+        assertEquals("John", maxSalaryEmployee.getName());
+    }
 }

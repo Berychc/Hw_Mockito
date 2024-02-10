@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/{id}")
+@RequestMapping("/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -18,23 +18,14 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/salary/sum")
+    @GetMapping("/{id}/employees")
+    public List<Employee> getAllEmployeesById(@PathVariable Integer id) {
+        return employeeService.getAllEmployeeInDepartment(id);
+    }
+
+    @GetMapping("/{id}/salary/sum")
     public Integer getTotalSalary(@PathVariable String id) {
         return employeeService.getTotalSalary(id);
     }
 
-    @GetMapping("/salary/max")
-    public Employee getMaxSalary(@PathVariable String id) {
-        return employeeService.getEmployeeWithMaxSalary(id);
-    }
-
-    @GetMapping("/salary/min")
-    public Employee getMinSalary(@PathVariable String id) {
-        return employeeService.getEmployeeWithMinSalary(id);
-    }
-
-    @GetMapping("/employees")
-    public List<Employee> getAllEmployeesById(@PathVariable String id) {
-        return employeeService.getAllEmployeeInDepartment(id);
-    }
 }

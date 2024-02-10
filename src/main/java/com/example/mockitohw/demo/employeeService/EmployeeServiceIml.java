@@ -5,11 +5,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class EmployeeServiceIml implements EmployeeService {
 
     private final List<Employee> employees = new ArrayList<>();
+    private EmployeeServiceIml employeeServiceIml;
+
+    public EmployeeServiceIml() {
+        this.employeeServiceIml = employeeServiceIml;
+    }
+
+    @Override
+    public List<Employee> getAllEmployees() {
+        return employees;
+    }
 
     @Override
     public Integer getTotalSalary(String departmentName) {
@@ -23,45 +35,14 @@ public class EmployeeServiceIml implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeWithMaxSalary(String departmentName) {
-        if (employees.isEmpty()) {
-            return null;
-        }
-        Employee maxSalaryEmployee = null;
-        int maxSalary = 0;
-        for (Employee employee : employees) {
-            if (employee.getName().equals(departmentName) && employee.getSalary() > maxSalary) {
-                maxSalary = employee.getSalary();
-                maxSalaryEmployee = employee;
-            }
-        }
-        return maxSalaryEmployee;
-    }
+    public List<Employee> getAllEmployeeInDepartment(Integer departmentName) {
+        Stream<Employee> employeeStream = employeeServiceIml.getAllEmployees().stream();
 
-    @Override
-    public Employee getEmployeeWithMinSalary(String departmentName) {
-        if (employees.isEmpty()) {
-            return null;
+        if (departmentName != null) {
+            employeeStream = employeeStream.filter(employee -> employee.getDepartmentId() == departmentName);
         }
-        Employee minSalaryEmployee = null;
-        int minSalary = 0;
-        for (Employee employee : employees) {
-            if (employee.getName().equals(departmentName) && employee.getSalary() < minSalary) {
-                minSalary = employee.getSalary();
-                minSalaryEmployee = employee;
-            }
-        }
-        return minSalaryEmployee;
-    }
-    @Override
-    public List<Employee> getAllEmployeeInDepartment(String departmentName) {
-        List<Employee> result = new ArrayList<>();
-        for (Employee employee : employees) {
-            if (employee.getName().equals(departmentName)) {
-                result.add(employee);
-            }
-        }
-        return result;
+
+        return employeeStream.collect(Collectors.toList());
     }
 
 
