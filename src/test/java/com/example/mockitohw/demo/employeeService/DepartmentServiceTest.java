@@ -20,7 +20,7 @@ public class DepartmentServiceTest {
     private final DepartmentService departmentService;
 
     @Mock
-    private List<Employee> employees;
+    private final EmployeeServiceIml employeeServiceIml = new EmployeeServiceIml();
 
     public DepartmentServiceTest(DepartmentService departmentService) {
         this.departmentService = departmentService;
@@ -35,7 +35,8 @@ public class DepartmentServiceTest {
         allEmployees.add(employee1);
         allEmployees.add(employee2);
 
-        when(employees).thenReturn(allEmployees);
+        when(employeeServiceIml.getAllEmployees()).thenReturn(allEmployees);
+
 
         Map<Integer, List<Employee>> expectedMap = new HashMap<>();
         expectedMap.put(1, Collections.singletonList(employee1));
