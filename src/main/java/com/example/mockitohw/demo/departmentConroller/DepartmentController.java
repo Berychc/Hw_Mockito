@@ -25,4 +25,13 @@ public class DepartmentController {
     public Map<Integer, List<Employee>> getGroupEmployeesByDepartment() {
         return departmentService.getGroupEmployeesByDepartment();
     }
+    @GetMapping("/{id}/salary/max")
+    public Employee getMaxSalary(@PathVariable Integer id) {
+        return departmentService.getEmployeeWithMaxSalary(id);
+    }
+
+    @GetMapping("/{id}/salary/min")
+    public Employee getMinSalary(@PathVariable Integer id) {
+        return departmentService.getEmployeeWithMinSalary(id);
+    }
 }

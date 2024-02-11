@@ -1,18 +1,22 @@
 package com.example.mockitohw.demo.employee;
 
-    public class Employee {
+import org.springframework.stereotype.Component;
 
-        private Integer id;
+@Component
+public class Employee {
+
+        private Integer departmentId;
         private String name;
         private Integer salary;
 
-        public Employee(Integer id, String name, Integer salary) {
-            this.id = id;
+        public Employee(Integer departmentId, String name, Integer salary) {
+            this.departmentId = departmentId;
             this.name = name;
             this.salary = salary;
         }
 
-        public String getName() {
+
+         public String getName() {
             return name;
         }
 
@@ -20,12 +24,12 @@ package com.example.mockitohw.demo.employee;
             this.name = name;
         }
 
-        public Integer getId() {
-            return id;
+        public Integer getDepartmentId() {
+            return departmentId;
         }
 
-        public void setId(Integer id) {
-            this.id = id;
+        public void setId(Integer departmentId) {
+            this.departmentId = departmentId;
         }
 
 
