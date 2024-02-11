@@ -33,9 +33,6 @@ public class DepartmentServiceIml implements DepartmentService {
 
     @Override
     public Employee getEmployeeWithMaxSalary(Integer departmentId) {
-        if (employees.isEmpty()) {
-            return null;
-        }
         return departmentServiceIml.getAllEmployees().stream().
                 filter(employee -> employee.getDepartmentId() == departmentId).
                 max(Comparator.comparing(Employee::getSalary)).orElseThrow();
@@ -43,9 +40,6 @@ public class DepartmentServiceIml implements DepartmentService {
 
     @Override
     public Employee getEmployeeWithMinSalary(Integer departmentId) {
-        if (employees.isEmpty()) {
-            return null;
-        }
         return departmentServiceIml.getAllEmployees().stream().
                 filter(employee -> employee.getDepartmentId() == departmentId).
                 min(Comparator.comparing(Employee::getSalary)).orElseThrow();

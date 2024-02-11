@@ -2,8 +2,8 @@ package com.example.mockitohw.demo.employeeService;
 
 import com.example.mockitohw.demo.employee.Employee;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public interface EmployeeService {
 
@@ -13,4 +13,6 @@ public interface EmployeeService {
 
 
     List<Employee> getAllEmployeeInDepartment(Integer departmentName);
+
+    Collection<Employee> findAll();
 }

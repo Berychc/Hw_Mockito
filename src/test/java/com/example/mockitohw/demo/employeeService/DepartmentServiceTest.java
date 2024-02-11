@@ -10,17 +10,19 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.*;
 
+import static com.example.mockitohw.demo.employeeService.EmployeeTestConstant.EmployeeTestConstants.*;
 import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DepartmentServiceTest {
 
-    @InjectMocks
-    private final DepartmentService departmentService;
-
     @Mock
-    private final EmployeeServiceIml employeeServiceIml = new EmployeeServiceIml();
+    private EmployeeServiceIml employeeServiceIml;
+
+
+    @InjectMocks
+    private DepartmentService departmentService;
 
     public DepartmentServiceTest(DepartmentService departmentService) {
         this.departmentService = departmentService;
@@ -35,7 +37,7 @@ public class DepartmentServiceTest {
         allEmployees.add(employee1);
         allEmployees.add(employee2);
 
-        when(employeeServiceIml.getAllEmployees()).thenReturn(allEmployees);
+        when(employeeServiceIml.findAll()).thenReturn(allEmployees);
 
 
         Map<Integer, List<Employee>> expectedMap = new HashMap<>();
@@ -47,21 +49,13 @@ public class DepartmentServiceTest {
     }
     @Test
     void testGetMaxSalary() {
-        Employee employee1 = new Employee(1, "John", 3000);
-        Employee employee2 = new Employee(2, "Bob", 4000);
-        departmentService.addEmployee(employee1);
-        departmentService.addEmployee(employee2);
-        Employee maxSalaryEmployee = departmentService.getEmployeeWithMaxSalary(2);
-        assertEquals("Bob", maxSalaryEmployee.getName());
+        when(employeeServiceIml.findAll()).thenReturn(EMPLOYEES);
+        assertEquals(MAX_SALARY_EMPLOYEE,departmentService.getEmployeeWithMaxSalary(DEPARTMENT_ID));
     }
 
     @Test
     void testGetMinSalary() {
-        Employee employee1 = new Employee(1, "John", 3000);
-        Employee employee2 = new Employee(2, "Bob", 4000);
-        departmentService.addEmployee(employee1);
-        departmentService.addEmployee(employee2);
-        Employee maxSalaryEmployee = departmentService.getEmployeeWithMinSalary(1);
-        assertEquals("John", maxSalaryEmployee.getName());
+        when(employeeServiceIml.findAll()).thenReturn(EMPLOYEES);
+        assertEquals(MIN_SALARY_EMPLOYEE,departmentService.getEmployeeWithMinSalary(DEPARTMENT_ID));
     }
 }

@@ -4,6 +4,8 @@ import com.example.mockitohw.demo.employee.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,9 +16,6 @@ public class EmployeeServiceIml implements EmployeeService {
     private final List<Employee> employees = new ArrayList<>();
     private EmployeeServiceIml employeeServiceIml;
 
-    public EmployeeServiceIml() {
-        this.employeeServiceIml = employeeServiceIml;
-    }
 
     @Override
     public List<Employee> getAllEmployees() {
@@ -45,6 +44,10 @@ public class EmployeeServiceIml implements EmployeeService {
         return employeeStream.collect(Collectors.toList());
     }
 
+    @Override
+    public Collection<Employee> findAll() {
+        return Collections.unmodifiableCollection(employees);
+    }
 
     public void addEmployee(Employee employee) {
         employees.add(employee);
