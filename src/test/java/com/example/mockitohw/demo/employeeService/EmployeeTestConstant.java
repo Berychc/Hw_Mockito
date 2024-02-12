@@ -11,9 +11,11 @@ import static java.util.stream.Collectors.groupingBy;
 public class EmployeeTestConstant {
     public static class EmployeeTestConstants {
         public static final String FIRST_NAME = "John";
+        public static final String FIRST_NAME1 = "Soup";
         public static final int SALARY = 3000;
         public static final int MIN_SALARY = 1000;
         public static final int DEPARTMENT_ID = 1;
+        public static final int DEPARTMENT_ID1 = 2;
         public static final Employee MAX_SALARY_EMPLOYEE = new Employee(DEPARTMENT_ID, FIRST_NAME, SALARY);
         public static final Employee MIN_SALARY_EMPLOYEE = new Employee( DEPARTMENT_ID, FIRST_NAME, MIN_SALARY);
         public static final List<Employee> EMPLOYEES = List.of(MIN_SALARY_EMPLOYEE, MAX_SALARY_EMPLOYEE);
