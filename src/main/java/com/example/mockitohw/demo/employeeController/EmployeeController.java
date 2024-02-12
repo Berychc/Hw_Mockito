@@ -5,6 +5,7 @@ import com.example.mockitohw.demo.employeeService.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.Inet4Address;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -18,14 +19,28 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/{id}/employees")
-    public List<Employee> getAllEmployeesById(@PathVariable Integer id) {
-        return employeeService.getAllEmployeeInDepartment(id);
+    @GetMapping("/add")
+    public String add(@RequestParam Integer departmentId, @RequestParam String name, @RequestParam Integer salary) {
+        Employee result = employeeService.add(departmentId, name, salary);
+        return generateMessage(result, "Сотрдуник создан");
+
+    }
+    @GetMapping("/remove")
+    public String remove(@RequestParam String name) {
+        Employee result = employeeService.remove(name);
+        return generateMessage(result, "Сотрудник удален");
+    }
+    @GetMapping("/find")
+    public Employee find(@RequestParam String name) {
+        return employeeService.find(name);
+    }
+    @GetMapping
+    private Collection<Employee> findAll() {
+        return employeeService.findAll();
     }
 
-    @GetMapping("/{id}/salary/sum")
-    public Integer getTotalSalary(@PathVariable String id) {
-        return employeeService.getTotalSalary(id);
+    private String generateMessage(Employee employee, String text) {
+        return String.format("Сотрудник %s %s %s.",
+                employee.getName(), text);
     }
-
 }

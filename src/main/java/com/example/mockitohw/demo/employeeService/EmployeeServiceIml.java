@@ -3,70 +3,67 @@ package com.example.mockitohw.demo.employeeService;
 import com.example.mockitohw.demo.employee.Employee;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
 public class EmployeeServiceIml implements EmployeeService {
 
-    private final List<Employee> employees = new ArrayList<>();
-    private EmployeeServiceIml employeeServiceIml;
-
-
-    @Override
-    public List<Employee> getAllEmployees() {
-        return employees;
+    private final Map<String, Employee> employees;
+    public EmployeeServiceIml() {
+        employees = new HashMap<>();
     }
 
-    @Override
-    public Integer getTotalSalary(String departmentName) {
-        int totalSalary = 0;
-        for (Employee employee : employees) {
-            if (employee.getSalary().equals(departmentName)) {
-                totalSalary += employee.getSalary();
+    private void validateNames(String... names) {
+        for (String name : names) {
+            if (!isAlpha(name)) {
+                throw new RuntimeException(name);
             }
         }
-        return totalSalary;
+    }
+
+    public static boolean isAlpha(String str) {
+        char[] charArray = str.toCharArray();
+        for (char c : charArray) {
+            if (!Character.isLetter(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
-    public List<Employee> getAllEmployeeInDepartment(Integer departmentName) {
-        Stream<Employee> employeeStream = employeeServiceIml.getAllEmployees().stream();
-
-        if (departmentName != null) {
-            employeeStream = employeeStream.filter(employee -> employee.getDepartmentId() == departmentName);
+    public Employee add(Integer departmentId, String name, Integer salary) {
+        validateNames(name);
+        Employee employeeNew = new Employee(departmentId, name, salary);
+        if (!employees.containsKey(name)) {
+            throw new RuntimeException("Сотрудник существует");
         }
+        return employees.get(name);
+    }
 
-        return employeeStream.collect(Collectors.toList());
+    @Override
+    public Employee remove(String name) {
+        validateNames(name);
+        if (!employees.containsKey(name)) {
+            throw new RuntimeException("Сотрудник не найден");
+        }
+        return employees.remove(name);
+    }
+
+    @Override
+    public Employee find(String name) {
+        validateNames(name);
+        if (!employees.containsKey(name)) {
+            throw new RuntimeException("Сотрудник не найден");
+        }
+        return employees.get(name);
     }
 
     @Override
     public Collection<Employee> findAll() {
-        return Collections.unmodifiableCollection(employees);
+        return Collections.unmodifiableCollection(employees.values());
     }
 
-    public void addEmployee(Employee employee) {
-        employees.add(employee);
-    }
-
-    public void removeEmployee(Employee employee) {
-        employees.remove(employee);
-    }
-
-    public Employee searchEmployeeByName(String name) {
-        for (Employee employee : employees) {
-            if (employee.getName().equals(name)) {
-                return employee;
-            }
-        }
-        return null;
-    }
-
-    public boolean getEmployee(Employee employee) {
-        return employees.contains(employee);
-    }
 }

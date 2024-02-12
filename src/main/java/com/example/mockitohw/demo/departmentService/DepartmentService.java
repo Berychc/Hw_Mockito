@@ -2,19 +2,18 @@ package com.example.mockitohw.demo.departmentService;
 
 import com.example.mockitohw.demo.employee.Employee;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 public interface DepartmentService {
 
-    List<Employee> getAllEmployees();
 
     Employee getEmployeeWithMaxSalary(Integer departmentId);
 
-
     Employee getEmployeeWithMinSalary(Integer departmentId);
 
-    Map<Integer, List<Employee>> getGroupEmployeesByDepartment();
+    Collection<Employee> findEmployeesByDepartment(Integer departmentId);
 
-    void addEmployee(Employee employee);
+    Map<Integer, List<Employee>> getGroupEmployeesByDepartment();
 }

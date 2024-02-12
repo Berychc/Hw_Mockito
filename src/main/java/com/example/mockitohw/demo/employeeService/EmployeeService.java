@@ -7,12 +7,11 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    List<Employee> getAllEmployees();
+    Employee add(Integer departmentId, String name, Integer salary);
 
-    Integer getTotalSalary(String departmentName);
+    Employee remove(String name);
 
-
-    List<Employee> getAllEmployeeInDepartment(Integer departmentName);
+    Employee find(String name);
 
     Collection<Employee> findAll();
 }

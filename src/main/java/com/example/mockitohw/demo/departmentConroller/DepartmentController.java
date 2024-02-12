@@ -3,11 +3,9 @@ package com.example.mockitohw.demo.departmentConroller;
 import com.example.mockitohw.demo.departmentService.DepartmentService;
 import com.example.mockitohw.demo.employee.Employee;
 import com.example.mockitohw.demo.employeeService.EmployeeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -21,10 +19,7 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping("/employees")
-    public Map<Integer, List<Employee>> getGroupEmployeesByDepartment() {
-        return departmentService.getGroupEmployeesByDepartment();
-    }
+
     @GetMapping("/{id}/salary/max")
     public Employee getMaxSalary(@PathVariable Integer id) {
         return departmentService.getEmployeeWithMaxSalary(id);
@@ -34,4 +29,16 @@ public class DepartmentController {
     public Employee getMinSalary(@PathVariable Integer id) {
         return departmentService.getEmployeeWithMinSalary(id);
     }
+
+    @GetMapping("/all")
+    public Collection<Employee> findEmployees(@RequestParam int departmentId) {
+        return departmentService.findEmployeesByDepartment(departmentId);
+    }
+
+    @GetMapping("/allGroup")
+    public Map<Integer, List<Employee>> findGroupEmployees() {
+        return departmentService.getGroupEmployeesByDepartment();
+    }
+
+
 }
